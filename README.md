@@ -8,7 +8,7 @@ In an SOA system, data will be split up across N boundaries.  When a request to 
 
 For example, when a user views a product on Amazon, the page will display product information such as product name, description, pricing, reviews, inventory, shipping options, etc.  These details would not be stored in one database but across many datasources according to the business domain and context.  How does the ViewModel for a page get populated when the details are separated in different sources?  
 
-Most approaches would have the requestor "know" where the data is.  It may be that there is one level of indirection where the requestor calls to a service, and that service knows how to make these calls.  The same problem exists however and is just moved to one central location.
+Most approaches would have the requestor "know" where the data is.  It may be that there is one level of indirection where the requestor calls to a service, and that service knows how to make these calls.  The same problem exists however and is simply moved one level further away.
 
 The main problem is that the requestor has the knowledge to pull this data together.  When the ViewModel changes, the requestor changes.  Everytime a web-page has a new feature or modification, the requestor also has to have knowledge of this change and account for it.  
 
@@ -37,6 +37,6 @@ The conversation would be:
 
 This solution requires an engine (ViewModel Composition Engine) that is aware of all the services.  Its primary role is to declaratively state "I want X" and match up the request with the services that are listening for this request.  
 
-To make this happen, all services would register themselves with the VMCE.  This registration should be automatic and not actually require the service to be aware of the VM or the VMCE.  This would happen upon system-startup through a common interface that all services would apply.  An assembly scanner would scan for all instances of this interface and be made aware of the participating services.
+To make this happen, all services would register themselves with the VMCE.  This registration should be automatic and not actually require the service to be aware of the VMCE.  This would happen upon system-startup through a common interface that all services would apply.  An assembly scanner would scan for all instances of this interface and be made aware of the participating services.
 
 Requests, although often Http, are not always Http.  The VMCE should be abstracted away from the VMCE as well.  The VMCE should only be aware of the ViewModel, its parameters, and the participating services.  
