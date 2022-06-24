@@ -14,10 +14,6 @@ The main problem is that the requestor has the knowledge to pull this data toget
 
 The goal of this project is to see if we can flip the dependency.  I want the requestor to say "I want X".  All the services listen to this statement, and respond to the request with the data for which they are responsible.
 
-## Technical Details
-
-This solution requires an engine (ViewModel Composition Engine) that is aware of all the services.  Its primary role is to declaratively state "I want X" and match up the request with the services that are listening for this request.  
-
 The conversation would be: 
 
 **Requestor**: I want to see product details for product id ABC.
@@ -35,3 +31,12 @@ The conversation would be:
 **Sales**: Yes, I have the pricing details.  Here you go!
 
 **VMC**: Alright Requestor, here's your response!
+
+
+## Technical Details
+
+This solution requires an engine (ViewModel Composition Engine) that is aware of all the services.  Its primary role is to declaratively state "I want X" and match up the request with the services that are listening for this request.  
+
+To make this happen, all services would register themselves with the VMCE.  This registration should be automatic and not actually require the service to be aware of the VM or the VMCE.  This would happen upon system-startup through a common interface that all services would apply.  An assembly scanner would scan for all instances of this interface and be made aware of the participating services.
+
+Requests, although often Http, are not always Http.  The VMCE should be abstracted away from the VMCE as well.  The VMCE should only be aware of the ViewModel, its parameters, and the participating services.  
