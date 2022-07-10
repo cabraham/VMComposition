@@ -40,3 +40,20 @@ This solution requires an engine (ViewModel Composition Engine) that is aware of
 To make this happen, all services would register themselves with the VMCE.  This registration should be automatic and not actually require the service to be aware of the VMCE.  This would happen upon system-startup through a common interface that all services would apply.  An assembly scanner would scan for all instances of this interface and be made aware of the participating services.
 
 Requests, although often Http, are not always Http.  The VMCE should be abstracted away from the VMCE as well.  The VMCE should only be aware of the ViewModel, its parameters, and the participating services.  
+
+
+### Overall Flow
+
+- Web Startup
+  - AssemblyScan for all handlers
+  - Register with container
+
+- Web Request
+  - ViewModel implements a number of marker interfaces
+    - INeedProductPrice, INeedProductDescription, INeedProductAvailability, etc
+    - VMC receives viewmodel
+      - VMC pulls out all marker interfaces
+      - VMC asks all handlers if they are interested in this interface
+      - VMC executes handlers
+      - VMC gathers all results and places in ViewModel
+    - Return ViewModel
