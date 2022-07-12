@@ -1,0 +1,11 @@
+{
+  "Version": 3,
+  "ListAllProjects": false,
+  "MultiProjectConfigurations": {
+    "Web": {
+      "Projects": {
+        "Client.Web": {}
+      }
+    }
+  }
+}
