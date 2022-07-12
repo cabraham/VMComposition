@@ -1,11 +1,12 @@
 using VMC.Framework.Composition;
+using Client.Web.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddScoped<IComposer, Composer>();
+builder.Services.RegisterCompositionHandlers();
 
 
 var app = builder.Build();
@@ -26,5 +27,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.ConfigureHandlers();
 
 app.Run();

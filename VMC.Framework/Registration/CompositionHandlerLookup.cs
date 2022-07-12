@@ -14,8 +14,11 @@ namespace VMC.Framework.Registration
 
         public IEnumerable<IHandleCompositionRequest> GetHandlersForRequest(CompositionRequest request)
         {
-            foreach (var handler in registry.GetHandlers())
+            foreach (var handlerType in registry.GetHandlerTypes())
             {
+                var handler = (IHandleCompositionRequest)Activator.CreateInstance(handlerType);
+
+
                 if (handler.IsApplicableHandler(request))
                 {
                     yield return handler;

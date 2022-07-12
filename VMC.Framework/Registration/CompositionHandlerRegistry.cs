@@ -4,18 +4,18 @@ namespace VMC.Framework.Registration
 {
     public class CompositionHandlerRegistry
     {
-        private readonly List<IHandleCompositionRequest> handlerRegistry;
+        private readonly List<Type> handlerRegistry;
 
         public CompositionHandlerRegistry()
         {
-            handlerRegistry = new List<IHandleCompositionRequest>();
+            handlerRegistry = new List<Type>();
         }
 
-        public void Add(IHandleCompositionRequest handler)
+        public void Add(Type handlerType)
         {
-            handlerRegistry.Add(handler);
+            handlerRegistry.Add(handlerType);
         }
 
-        public IReadOnlyList<IHandleCompositionRequest> GetHandlers() => handlerRegistry;
+        public IReadOnlyList<Type> GetHandlerTypes() => handlerRegistry.AsReadOnly();
     }
 }
