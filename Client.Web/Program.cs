@@ -1,7 +1,12 @@
+using VMC.Framework.Composition;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped<IComposer, Composer>();
+
 
 var app = builder.Build();
 
